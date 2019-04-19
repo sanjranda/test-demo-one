@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3c9314a7-f0f1-4983-960a-b888840c2d3b" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="test-demo-oneFlow" doc:id="2468e249-be0a-4152-8af5-82857f3e1f18" >
+		<http:listener doc:name="Listener" doc:id="d07d985e-7e90-456a-b254-403c43cee93f" config-ref="HTTP_Listener_config" path="/test-demo-one"/>
+		<logger level="INFO" doc:name="Logger" doc:id="73bfb7a6-00e8-4fd9-bfff-85cf0380ad0c" message="payload value passed ... #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="9f187f1e-4212-43ef-8d1a-c586313a485b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+note: payload	
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="17d3f771-b237-4f37-9303-2d60ccad6ea3" message="payload value after csv to json transform ... #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="4b9c34f7-1fc7-462f-96e6-ce9679d51c99" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+abc: {(payload)}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="300e93ea-1ee5-404c-b3bd-9ef44a31943c" message="payload ater json to xml transfrom ... #[payload]"/>
+	</flow>
+	<flow name="test-demo-oneFlow1" doc:id="02f44ffd-a3e8-4b69-a04d-0d5ca35293e2" >
+		<http:listener doc:name="Listener" doc:id="0405493e-b5b3-4402-bdbb-c2afac63d1f8" config-ref="HTTP_Listener_config" path="/test-demo-one-xml-to-csv"/>
+		<logger level="INFO" doc:name="Logger" doc:id="b0ea94b8-abb8-4e16-83fb-d66b9e34f250" message="values passed from request .... #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="0f02d132-75e5-4bc1-aaf8-a08421f9806b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/csv
+---
+payload.abc.*note]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="2c12fb9e-e17f-4a67-bd29-b032d71c7b56" message="payload after conversion from xml to csv ... #[payload]"/>
+	</flow>
+</mule>
