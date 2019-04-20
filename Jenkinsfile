@@ -18,11 +18,20 @@ pipeline{
 					bat "mvn compile"
 				}
 			}
+			
 			stage('sonarqube code check'){
 				steps{
 					bat "mvn sonar:sonar"
 				}
 			}
+			
+			stage('quality gate check'){
+				steps{
+					timeout(time: 1, unit: 'HOURS') {
+                		waitForQualityGate abortPipeline: true
+                	}
+				}
+			}			
 			
 			stage('package'){
 				steps{
