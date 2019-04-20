@@ -18,16 +18,17 @@ pipeline{
 					bat "mvn compile"
 				}
 			}
-			
-			stage('sonarqube code check'){
+						
+			stage('sonarqube env ...'){
 				steps{
-					bat "mvn sonar:sonar"
+					withSonarQubeEnv('My SonarQube Server') {
+                	bat 'mvn sonar:sonar'
 				}
 			}
 			
 			stage('quality gate check'){
 				steps{
-					timeout(time: 1, unit: 'HOURS') {
+					timeout(time: 3, unit: 'MINUTES') {
                 		waitForQualityGate abortPipeline: true
                 	}
 				}
