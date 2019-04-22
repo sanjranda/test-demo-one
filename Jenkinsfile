@@ -21,7 +21,7 @@ pipeline{
 						
 			stage('sonarqube env ...'){
 				steps{
-					withSonarQubeEnv('My SonarQube Server') {
+					withSonarQubeEnv('sonar1') {
                 	bat 'mvn sonar:sonar'
 				}
 			}
