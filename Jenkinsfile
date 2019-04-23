@@ -45,7 +45,8 @@ pipeline{
 							emailext body: 'Jenkins build has failed and the application has not been deployed to Cloudhub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build failed test-repo-one'
 						}
               	}
-			}      
+			}    
+			}  
 			
 			stage('package'){
 				steps{
