@@ -24,6 +24,18 @@ pipeline{
 					withSonarQubeEnv('sonar1') {
                 	bat 'mvn sonar:sonar'
 				}
+				post {
+			        	always{
+			        		echo "after mvn sonar sonar process ..."	
+			        	}
+			        	success{
+			        		echo "entered success in sonarqube env "
+							emailext body: 'Jenkins build has executed successfully and the application has been deployed to CloudHub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build success test-repo-one'
+						}
+						failure{
+							echo "entered failure in sonarqube env"
+							emailext body: 'Jenkins build has failed and the application has not been deployed to Cloudhub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build failed test-repo-one'
+						}
 			}
 			}
 			
