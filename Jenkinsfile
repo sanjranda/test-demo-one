@@ -25,6 +25,7 @@ pipeline{
                 	bat 'mvn sonar:sonar'
                 	}
 				}
+			}
 			
 			stage('package'){
 				steps{
