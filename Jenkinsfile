@@ -23,18 +23,21 @@ pipeline{
 				steps{
 					withSonarQubeEnv('sonar1') {
                 	bat 'mvn sonar:sonar'
-				}
-				
-	        	success{
-	        		echo "entered success in sonarqube env "
-					emailext body: 'Jenkins build has executed successfully and the application has been deployed to CloudHub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build success test-repo-one'
-				}
-				failure{
-					echo "entered failure in sonarqube env"
-					emailext body: 'Jenkins build has failed and the application has not been deployed to Cloudhub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build failed test-repo-one'
-				}
-			 } 
-			}
+                	}
+                	
+                	post{
+                		success{
+	        				echo "entered success in sonarqube env "
+							emailext body: 'Jenkins build has executed successfully and the application has been deployed to CloudHub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build success test-repo-one'
+							}
+						failure{
+							echo "entered failure in sonarqube env"
+							emailext body: 'Jenkins build has failed and the application has not been deployed to Cloudhub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build failed test-repo-one'
+							} 
+						} 
+                		}
+					}
+			 	
 			
 /*        	stage("Quality Gate") {
   				steps {
