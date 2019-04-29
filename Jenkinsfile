@@ -37,28 +37,6 @@ pipeline{
 						} 
                 		}
 					}
-			 	
-			
-/*        	stage("Quality Gate") {
-  				steps {
-              		timeout(time: 1, unit: 'MINUTES') {
-                	waitForQualityGate abortPipeline: false
-              		}
-              		post {
-			        	always{
-			        		echo "executed quality gate process ..."	
-			        	}
-			        	success{
-			        		echo "entered success in quality gate process "
-							emailext body: 'Jenkins build has executed successfully and the application has been deployed to CloudHub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build success test-repo-one'
-						}
-						failure{
-							echo "entered failure in quality gate process"
-							emailext body: 'Jenkins build has failed and the application has not been deployed to Cloudhub', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Jenkins build failed test-repo-one'
-						}
-              	}
-			}    
-			}  */
 			
 			stage('package'){
 				steps{
