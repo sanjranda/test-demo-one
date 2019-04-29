@@ -3,7 +3,13 @@ package com.ast;
 public class Sample1 {
 
 	public static void main(String[] sanj) {
-		System.out.println("this is a test Sample1 class .... ");		
+		System.out.println("this is a test Sample1 class .... ");	
+		test();
 	}
 	
+	public static void test() {
+		System.out.println("entered test one ....");
+		System.out.println("entered test two ....");
+		System.out.println("entered test three ....");
+	}
 }
