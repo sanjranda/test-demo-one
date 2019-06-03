@@ -18,6 +18,12 @@ pipeline{
 					bat "mvn compile"
 				}
 			}
+			
+			stage('deploy'){
+				steps{
+					bat "mvn deploy -DmuleDeploy"
+				}
+			}
 						
 			stage('sonarqube env ...'){
 				steps{
@@ -41,11 +47,11 @@ pipeline{
 				}
 			}
 			
-			stage('deploy'){
+			/*stage('deploy'){
 				steps{
 					bat "mvn deploy -DmuleDeploy"
 				}
-			}
+			}*/
 		}
 		
 		post {
