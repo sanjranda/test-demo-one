@@ -18,14 +18,8 @@ pipeline{
 					bat "mvn compile"
 				}
 			}
-			
-			stage('deploy'){
-				steps{
-					bat "mvn deploy -DmuleDeploy"
-				}
-			}
-						
-			stage('sonarqube env ...'){
+									
+			/*stage('sonarqube env ...'){
 				steps{
 					withSonarQubeEnv('sonar1') {
                 	bat 'mvn sonar:sonar'
@@ -39,7 +33,7 @@ pipeline{
 					echo "entered failure in sonarqube env"
 					} 
 				}
-			}
+			}*/
 			
 			stage('package'){
 				steps{
@@ -47,11 +41,11 @@ pipeline{
 				}
 			}
 			
-			/*stage('deploy'){
+			stage('deploy'){
 				steps{
 					bat "mvn deploy -DmuleDeploy"
 				}
-			}*/
+			}
 		}
 		
 		post {
