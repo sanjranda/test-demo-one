@@ -41,11 +41,11 @@ pipeline{
 				}
 			}
 			
-			/*stage('deploy'){
+			stage('deploy'){
 				steps{
 					bat "mvn deploy -DmuleDeploy"
 				}
-			}*/
+			}
 		}
 		
 		post {
